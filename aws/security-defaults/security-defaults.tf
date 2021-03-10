@@ -17,3 +17,10 @@ data "aws_vpc" "default" {
 resource "aws_default_security_group" "deny_all_traffic" {
   vpc_id      = data.aws_vpc.default.id
 }
+
+data "aws_security_groups" "default_security_groups" {
+  filter {
+    name   = "group-name"
+    values = ["*Default*"]
+  }
+}
