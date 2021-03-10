@@ -10,13 +10,6 @@ variable "default_security_deny_all_traffic" {
   default     = true
 }
 
-data "aws_security_groups" "defaults" {
-  filter {
-    name   = "group-name"
-    values = ["*nodes*"]
-  }
-}
-
 resource "aws_default_vpc" "default" {}
 
 resource "aws_default_security_group" "deny_all_traffic" {
