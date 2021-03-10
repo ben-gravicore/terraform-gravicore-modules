@@ -17,20 +17,15 @@ variable "default_aws_security_groups" {
 resource "aws_security_group" "deny_all_traffic" {
   # vpc_id      = data.aws_vpc.default.id
   ingress {
-    dynamic "security_groups" {
-      for_each = var.default_aws_security_groups
-      content {
-        security_groups   = default_aws_security_groups.value.security_group_id
-      }
+  }
+
+  dynamic "security_groups" {
+    for_each = var.default_aws_security_groups
+    content {
+      security_groups   = default_aws_security_groups.value.security_group_id
     }
   }
 
   egress {
-    dynamic "security_groups" {
-      for_each = var.default_aws_security_groups
-      content {
-        security_groups   = default_aws_security_groups.value.security_group_id
-      }
-    }
   }
 }
