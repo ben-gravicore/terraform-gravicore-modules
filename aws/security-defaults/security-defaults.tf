@@ -17,14 +17,12 @@ data "aws_security_groups" "defaults" {
   }
 }
 
-resource "aws_vpc" "mainvpc" {
-  cidr_block = "10.1.0.0/16"
-}
+resource "aws_default_vpc" "default" {}
 
 resource "aws_default_security_group" "deny_all_traffic" {
   name        = "deny_all_traffic"
   description = "Deny all traffic on default security groups"
-  vpc_id      = aws_vpc.main.id
+  vpc_id      = aws_default_vpc.default.id
 
   ingress {
     protocol  = -1
