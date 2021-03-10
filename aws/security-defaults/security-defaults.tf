@@ -28,8 +28,4 @@ resource "aws_default_security_group" "deny_all_traffic" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
-  tags = {
-    Name = local.tags
-  }
 }
