@@ -14,13 +14,14 @@ data "aws_vpc" "default" {
   default     = true
 }
 
-resource "aws_default_security_group" "deny_all_traffic" {
-  vpc_id      = data.aws_vpc.default.id
-}
-
 data "aws_security_groups" "default_security_groups" {
   filter {
     name   = "group-name"
     values = ["*default*"]
   }
+}
+
+resource "aws_security_group" "deny_all_traffic" {
+  # vpc_id      = data.aws_vpc.default.id
+  security_groups = data.aws_security_groups.default_security_groups
 }
