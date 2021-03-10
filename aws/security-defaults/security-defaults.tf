@@ -10,7 +10,9 @@ variable "default_security_deny_all_traffic" {
   default     = true
 }
 
-resource "aws_default_vpc" "default" {}
+data "aws_vpc" "default" {
+  default     = true
+}
 
 resource "aws_default_security_group" "deny_all_traffic" {
   vpc_id      = aws_default_vpc.default.id
