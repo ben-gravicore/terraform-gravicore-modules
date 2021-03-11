@@ -7,7 +7,6 @@ variable "default_security_deny_all_traffic_on_aws_regions" {
 variable "default_aws_security_group_vpc_ids" {
   type = list(object({
     vpc_id                = string
-    region                = string
   }))
 
   description = "List of vpc_ids from default security groups with region"
