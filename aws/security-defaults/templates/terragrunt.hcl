@@ -29,7 +29,7 @@ inputs = {
 terraform {
   before_hook "providers" {
     commands     = ["init"]
-    execute      = ["bash", "-c", "cp -f ../providers*.tf . 2>/dev/null || :"]
+    execute      = ["bash", "-c", "cp -f ../../providers*.tf . 2>/dev/null || :"]
     run_on_error = false
   }
 }
