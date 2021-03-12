@@ -13,7 +13,7 @@ variable "default_aws_security_group_vpc_ids" {
   default     = []
 }
 
-resource "aws_default_security_group" "deny_all_traffic" {
+resource "aws_default_security_group" "default" {
   # vpc_id      = data.aws_vpc.default.id
 
 #   dynamic "vpc_id" {
