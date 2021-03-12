@@ -5,5 +5,5 @@ variable "default_aws_security_group_vpc_id" {
 }
 
 resource "aws_default_security_group" "default" {
-  vpc_id      = var.default_aws_security_group_vpc_id.value
+  vpc_id      = var.default_aws_security_group_vpc_id
 }
