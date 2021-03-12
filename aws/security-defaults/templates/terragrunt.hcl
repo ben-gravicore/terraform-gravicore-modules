@@ -24,3 +24,12 @@ include {
 inputs = {
   default_aws_security_group_vpc_id = ""
 }
+
+# Configure root level variables that all resources can inherit
+terraform {
+  before_hook "providers" {
+    commands     = ["init"]
+    execute      = ["bash", "-c", "cp -f ../providers*.tf . 2>/dev/null || :"]
+    run_on_error = false
+  }
+}
