@@ -8,7 +8,14 @@
 # working directory, into a temporary folder, and execute your Terraform commands in that folder.
 terraform {
   # source = "../../../terraform-gravicore-modules/aws//default"
-  source = "git::https://github.com/ben-gravicore/terraform-gravicore-modules.git//aws/security-defaults"
+  source = "git::https://github.com/gravicore/terraform-gravicore-modules.git//aws/security-defaults"
+
+  # Copy providers.tf template that contains skip_region_validation property
+  before_hook "providers" {
+    commands     = ["init"]
+    execute      = ["bash", "-c", "cp -f ${get_terragrunt_dir()}/../../providers*.tf ${get_terragrunt_dir()} 2>/dev/null || :"]
+    run_on_error = false
+  }
 }
 
 # Include all settings from the root terraform.tfvars file
@@ -23,13 +30,4 @@ include {
 
 inputs = {
   default_aws_security_group_vpc_id = ""
-}
-
-# Configure root level variables that all resources can inherit
-terraform {
-  before_hook "providers" {
-    commands     = ["init"]
-    execute      = ["bash", "-c", "cp -f ../../providers*.tf . 2>/dev/null || :"]
-    run_on_error = false
-  }
 }

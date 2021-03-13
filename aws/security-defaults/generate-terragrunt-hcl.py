@@ -21,6 +21,9 @@ regions = json.loads(subprocess.check_output("aws ec2 describe-regions --profile
 # Debug
 print ("Generating terragrunt-hcl files")
 
+# Copy default providers.tf
+shutil.copy("templates/providers.tf", output_dir)
+
 # Loop Through Regions
 for region in regions.Regions:
     vpcs = json.loads(subprocess.check_output("aws ec2 describe-vpcs --region " + region.RegionName \
