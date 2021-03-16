@@ -616,6 +616,34 @@ data "archive_file" "hsts" {
   }
 }
 
+resource "aws_security_group" "internal_lambda" {
+  count       = var.create ? 1 : 0
+  name        = "${local.module_prefix}-lambda"
+  description = "Allow egress traffic only"
+  tags        = local.tags
+
+  vpc_id      = var.vpc_id
+
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    self        = true
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+output "internal_lambda_security_group_id" {
+  description = "ID of Lambda security group used for interal processes"
+  value       = aws_security_group.internal_lambda[0].id
+}
+
 resource "aws_lambda_function" "hsts" {
   count         = var.create && var.enable_security_headers ? 1 : 0
   filename      = data.archive_file.hsts.output_path
