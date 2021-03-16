@@ -581,11 +581,6 @@ resource "aws_iam_role" "hsts" {
 }
 EOF
 
-  vpc_config {
-    subnet_ids         = var.vpc_private_subnets
-    security_group_ids = ["${var.internal_lambda_security_group_id}"]
-  }
-
   tags = local.tags
 }
 
@@ -636,6 +631,11 @@ resource "aws_lambda_function" "hsts" {
   memory_size = 128
 
   tags = local.tags
+
+  vpc_config {
+    subnet_ids         = var.vpc_private_subnets
+    security_group_ids = ["${var.internal_lambda_security_group_id}"]
+  }
 
   tracing_config {
     mode = "PassThrough"
