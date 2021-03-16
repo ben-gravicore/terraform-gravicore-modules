@@ -339,6 +339,15 @@ EOF
   description = "Additional code to be injected into the origin-responce edge lambda"
 }
 
+variable "vpc_id" {
+  default     = ""
+}
+
+variable "vpc_private_subnets" {
+  type    = list(string)
+  default = [""]
+}
+
 variable "internal_lambda_security_group_id" {
   type    = string
   default = ""
