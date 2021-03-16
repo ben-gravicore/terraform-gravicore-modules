@@ -55,6 +55,12 @@ variable "cloudtrail_name" {
   description = ""
 }
 
+variable "cloudtrail_enable_logging" {
+  type        = bool
+  default     = true
+  description = ""
+}
+
 # ----------------------------------------------------------------------------------------------------------------------
 # MODULES / RESOURCES
 # ----------------------------------------------------------------------------------------------------------------------
@@ -125,6 +131,7 @@ resource "aws_cloudtrail" "default" {
   name                  = join("-", [local.module_prefix])
   s3_bucket_name        = aws_s3_bucket.default[0].id
   is_multi_region_trail = true
+  enable_logging        = var.cloudtrail_enable_logging == null ? true: var.cloudtrail_enable_logging
 }
 
 resource "aws_cloudformation_stack" "cloudtrail" {
