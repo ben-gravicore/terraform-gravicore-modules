@@ -7,6 +7,11 @@ variable "s3_bucket_versioning" {
   default     = false
 }
 
+variable "s3_bucket_versioning_mfa_delete" {
+  description = "S3 bucket versioning mfa upon delete enabled?"
+  default     = true
+}
+
 variable "sse_algorithm" {
   type        = string
   default     = "AES256"
@@ -73,6 +78,7 @@ resource "aws_s3_bucket" "default" {
 
   versioning {
     enabled = var.s3_bucket_versioning
+    mfa_delete = var.s3_bucket_versioning_mfa_delete
   }
 
   server_side_encryption_configuration {
