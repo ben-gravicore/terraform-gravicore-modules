@@ -66,6 +66,12 @@ variable "cloudtrail_enable_logging" {
   description = ""
 }
 
+variable "cloudtrail_enable_log_file_validation" {
+  type        = bool
+  default     = true
+  description = ""
+}
+
 # ----------------------------------------------------------------------------------------------------------------------
 # MODULES / RESOURCES
 # ----------------------------------------------------------------------------------------------------------------------
@@ -138,6 +144,8 @@ resource "aws_cloudtrail" "default" {
   s3_bucket_name        = aws_s3_bucket.default[0].id
   is_multi_region_trail = true
   enable_logging        = var.cloudtrail_enable_logging == null ? true: var.cloudtrail_enable_logging
+  kms_key_id            = var.kms_master_key_arn
+  enable_log_file_validation  = var.cloudtrail_enable_log_file_validation
 }
 
 resource "aws_cloudformation_stack" "cloudtrail" {
