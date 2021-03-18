@@ -664,7 +664,7 @@ resource "aws_lambda_function" "hsts" {
   function_name = join(var.delimiter, [local.module_prefix, "hsts"])
   role          = aws_iam_role.hsts[0].arn
   handler       = "index.handler"
-  description   = "Blueprint for modifying CloudFront response header implemented in NodeJS"
+  description   = "Blueprint for modifying CloudFront response header implemented in NodeJS."
 
   source_code_hash = data.archive_file.hsts.output_base64sha256
 
